@@ -72,21 +72,17 @@ public class PlayerShooting : MonoBehaviour
         currentAmmo--;
         uiManager.UpdateAmmoText(currentAmmo);
 
-        // Play muzzle flash effect
         if (muzzleFlash != null) muzzleFlash.Play();
 
-        // Enable muzzle flash light
         if (muzzleFlashLight != null)
         {
             muzzleFlashLight.enabled = true;
             StartCoroutine(DisableFlashAfterTime());
         }
 
-        // Play shooting animation
         weaponAnimator.SetBool("isShooting", true);
         weaponAnimator.SetTrigger("Shoot");
 
-        // Play shooting sound
         if (gunAudioSource != null && fireSound != null)
             gunAudioSource.PlayOneShot(fireSound);
 

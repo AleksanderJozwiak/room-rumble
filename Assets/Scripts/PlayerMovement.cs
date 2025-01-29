@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -107,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             if (footstepTimer <= 0f)
             {
                 footstepTimer = isSprinting ? footstepInterval / 1.5f : footstepInterval; // Faster footsteps when sprinting
-                footstepAudioSource.clip = footstepSounds[Random.Range(0, footstepSounds.Count)];
+                footstepAudioSource.clip = footstepSounds[UnityEngine.Random.Range(0, footstepSounds.Count)];
                 footstepAudioSource.Play();
             }
         }
@@ -128,5 +129,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isRegeneratingStamina = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        playerStats.currentHealth -= damage;
+        uiManager.UpdateHealthBar();
+        if (playerStats.currentHealth < 0) {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("Player died");
     }
 }

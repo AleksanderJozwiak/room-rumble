@@ -8,13 +8,15 @@ public class PlayerUIManager : MonoBehaviour
     public Slider healthBar;
     public Slider staminaBar;
     public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI statsText; // New UI for displaying fire rate, crit chance, etc.
+    public TextMeshProUGUI statsText;
 
     [Header("Player Stats")]
     public PlayerStats playerStats;
 
     private void Start()
     {
+        playerStats.currentHealth = playerStats.maxHealth;
+        playerStats.currentStamina = playerStats.maxStamina;
         UpdateHealthBar();
         UpdateStaminaBar();
         UpdateAmmoText(0);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float lifetime = 5f;
-    public float damage = 10f;
+    public int damage = 10;
 
     private void Start()
     {
@@ -14,12 +14,10 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Hit: " + collision.gameObject.name);
-
-        var targetHealth = collision.gameObject.GetComponent<Health>();
-        if (targetHealth != null)
+        var playerHit = collision.gameObject.TryGetComponent<PlayerMovement>(out var playerMovement);
+        if (playerHit)
         {
-            targetHealth.TakeDamage(damage);
+            playerMovement.TakeDamage(damage);
         }
 
         Destroy(gameObject);

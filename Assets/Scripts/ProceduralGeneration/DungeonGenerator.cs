@@ -82,6 +82,7 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         bool isFirstRoom = true;
+        BakeNavMesh();
         foreach (GameObject generatedRoom in generatedRooms)
         {
             Room room = generatedRoom.GetComponent<Room>();
