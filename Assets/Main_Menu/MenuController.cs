@@ -21,9 +21,40 @@ public class MenuController : MonoBehaviour
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog = null;
 
+    [Header("Main Menu UI")]
+    [SerializeField] private GameObject mainMenuUI = null;
+
+    private bool isPaused = false;
+
     public void NewGameDialogYes()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(_newGameLevel);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && mainMenuUI != null && Time.timeScale == 1f)
+        {
+            ToggleMenu();
+        }
+    }
+
+    public void ToggleMenu()
+    {
+        isPaused = !isPaused;
+        mainMenuUI.SetActive(isPaused);
+
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void LoadGameDialogYes()

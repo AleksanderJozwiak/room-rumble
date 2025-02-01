@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
+
         isGrounded = characterController.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
@@ -136,12 +138,7 @@ public class PlayerMovement : MonoBehaviour
         playerStats.currentHealth -= damage;
         uiManager.UpdateHealthBar();
         if (playerStats.currentHealth < 0) {
-            Die();
+            uiManager.PlayerDies();
         }
-    }
-
-    public void Die()
-    {
-        Debug.Log("Player died");
     }
 }

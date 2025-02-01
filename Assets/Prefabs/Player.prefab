@@ -1031,7 +1031,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2782753456186708751}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 71}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1549,6 +1549,7 @@ MonoBehaviour:
   ammoText: {fileID: 1889601116924018036}
   statsText: {fileID: 2591784610822376042}
   playerStats: {fileID: 11400000, guid: e481f130a49278f46b4bab113a6a40b9, type: 2}
+  playerDeathUI: {fileID: 0}
 --- !u!1 &4597743672302281972
 GameObject:
   m_ObjectHideFlags: 0
