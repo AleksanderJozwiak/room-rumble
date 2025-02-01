@@ -13,6 +13,8 @@ public class PlayerUIManager : MonoBehaviour
     [Header("Player Stats")]
     public PlayerStats playerStats;
 
+    public GameObject playerDeathUI;
+
     private void Start()
     {
         playerStats.currentHealth = playerStats.maxHealth;
@@ -43,5 +45,12 @@ public class PlayerUIManager : MonoBehaviour
         statsText.text = $"Fire Rate: {playerStats.fireRate}s\n" +
                          $"Crit Chance: {playerStats.criticalChance}%\n" +
                          $"Reload Speed: {playerStats.reloadSpeed}s";
+    }
+
+    public void PlayerDies()
+    {
+        playerDeathUI.SetActive(true);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

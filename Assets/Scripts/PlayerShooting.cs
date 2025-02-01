@@ -31,9 +31,9 @@ public class PlayerShooting : MonoBehaviour
     public float flashDuration = 0.05f;
 
     [Header("Hit Marker UI & Sound")]
-    public Image hitMarkerUI; // Reference to the UI Image
-    public float hitMarkerDuration = 0.1f; // Time before disabling the marker
-    public AudioClip hitMarkerSound; // Sound for hit marker
+    public Image hitMarkerUI;
+    public float hitMarkerDuration = 0.1f;
+    public AudioClip hitMarkerSound;
     public GameObject floatingDamagePrefab;
 
 
@@ -48,11 +48,13 @@ public class PlayerShooting : MonoBehaviour
         uiManager.UpdateAmmoText(currentAmmo);
 
         if (hitMarkerUI != null)
-            hitMarkerUI.enabled = false; // Ensure hit marker is off at start
+            hitMarkerUI.enabled = false;
     }
 
     private void Update()
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
+
         if (Input.GetButton("Fire1") && canShoot && currentAmmo > 0 && !isReloading)
         {
             StartCoroutine(Shoot());
@@ -86,7 +88,6 @@ public class PlayerShooting : MonoBehaviour
         if (gunAudioSource != null && fireSound != null)
             gunAudioSource.PlayOneShot(fireSound);
 
-        // Fire hitscan
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out RaycastHit hit, weaponRange, hitLayers))
         {
@@ -95,11 +96,10 @@ public class PlayerShooting : MonoBehaviour
                 float finalDamage = playerStats.damage;
                 if (Random.Range(0f, 100f) < playerStats.criticalChance)
                 {
-                    finalDamage *= 2; // Critical hit
+                    finalDamage *= 2; 
                 }
                 target.TakeDamage(finalDamage);
 
-                // **Show hit marker and play sound**
                 if (hitMarkerUI != null)
                 {
                     hitMarkerUI.enabled = true;
@@ -110,7 +110,6 @@ public class PlayerShooting : MonoBehaviour
                     gunAudioSource.PlayOneShot(hitMarkerSound);
                 }
 
-                // **Instantiate Floating Damage Text**
                 if (floatingDamagePrefab != null)
                 {
                     GameObject dmgText = Instantiate(floatingDamagePrefab, hit.point, Quaternion.identity);
@@ -118,8 +117,6 @@ public class PlayerShooting : MonoBehaviour
                 }
             }
 
-
-            // Instantiate bullet tracer effect
             StartCoroutine(SpawnBulletTracer(startPoint.transform.position, hit.point));
 
             if (impactEffect != null)
@@ -130,7 +127,6 @@ public class PlayerShooting : MonoBehaviour
         weaponAnimator.SetBool("isShooting", false);
         canShoot = true;
 
-        // Auto reload if out of ammo
         if (currentAmmo <= 0)
         {
             StartCoroutine(Reload());
