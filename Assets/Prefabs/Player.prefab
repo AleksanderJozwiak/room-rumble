@@ -197,6 +197,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4738f8a326a6ace4daae266b74dd8dfc, type: 3}
   - {fileID: 8300000, guid: 9cbd09afac77ea14aae46cfba8ff8d6d, type: 3}
   - {fileID: 8300000, guid: fc8df2a0835fd414daa0f56acb150d96, type: 3}
+  - {fileID: 8300000, guid: 579dad29b0c56864e927f96f66bc1af8, type: 3}
+  - {fileID: 8300000, guid: 3036d69edd7a4464bb4c0eb5a0228944, type: 3}
   footstepInterval: 0.5
 --- !u!114 &1827025153705844748
 MonoBehaviour:
@@ -226,8 +228,8 @@ MonoBehaviour:
   tracerLifetime: 0.1
   muzzleFlash: {fileID: 6628060570728568171}
   gunAudioSource: {fileID: 7544060547944042158}
-  fireSound: {fileID: 8300000, guid: cb0ea27a8da4675429ec5a02a8826e88, type: 3}
-  reloadSound: {fileID: 8300000, guid: 59dd7bcf30309894fbdda3b239aa05da, type: 3}
+  fireSound: {fileID: 8300000, guid: 75d5794d597b959478a5ba39bd497c54, type: 3}
+  reloadSound: {fileID: 8300000, guid: 46b6ece5ca6051e4db5fae612a1e697d, type: 3}
   muzzleFlashLight: {fileID: 1439734156598468379}
   flashDuration: 0.1
   hitMarkerUI: {fileID: 4523776664303979335}
