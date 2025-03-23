@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        if (agent == null) agent = GetComponentInParent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent.speed = enemyData.movementSpeed;
         SetNewPatrolTarget();
@@ -102,6 +103,8 @@ public class EnemyAI : MonoBehaviour
 
     private void ShootProjectile()
     {
+        firePoint.transform.rotation = Quaternion.LookRotation(player.transform.position - firePoint.transform.position);
+        
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody projRb = projectile.GetComponent<Rigidbody>();
         Vector3 direction = player.position - transform.position;

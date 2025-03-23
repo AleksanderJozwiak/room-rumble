@@ -17,4 +17,4 @@ MonoBehaviour:
   attackRange: 20
   sightRange: 20
   attackCooldown: 1.5
-  projectileSpeed: 7.5
+  projectileSpeed: 10

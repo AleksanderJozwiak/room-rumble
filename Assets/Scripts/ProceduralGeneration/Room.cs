@@ -61,7 +61,7 @@ public class Room : MonoBehaviour
             return;
         }
 
-        if (Random.value <= 0.33f) // 75% chance to spawn
+        if (Random.value <= 0.33f)
         {
             GameObject objToSpawn = powerUps[Random.Range(0, powerUps.Count)];
             Vector3 spawnPosition = new Vector3(powerUpSpawnPoint.position.x, objToSpawn.transform.position.y, powerUpSpawnPoint.position.z);
