@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0f)
             {
-                footstepTimer = isSprinting ? footstepInterval / 1.5f : footstepInterval; // Faster footsteps when sprinting
+                footstepTimer = isSprinting ? footstepInterval / 1.5f : footstepInterval;
                 footstepAudioSource.clip = footstepSounds[UnityEngine.Random.Range(0, footstepSounds.Count)];
                 footstepAudioSource.Play();
             }
@@ -135,8 +135,27 @@ public class PlayerMovement : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        playerStats.currentHealth -= damage;
+        var damageToTake = damage;
+
+        if (playerStats.armor > 0) {
+            var damageDiff = playerStats.armor - damageToTake;
+            if (damageDiff >= 0) {
+                playerStats.armor -= damageToTake;
+            }
+            else
+            {
+                playerStats.armor = 0;
+                playerStats.currentHealth += damageDiff;
+            }
+        }
+        else
+        {
+            playerStats.currentHealth -= damage;
+        }
+
+
         uiManager.UpdateHealthBar();
+        uiManager.UpdateArmorBar();
         if (playerStats.currentHealth < 0) {
             uiManager.PlayerDies();
         }

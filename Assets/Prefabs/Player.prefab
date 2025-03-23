@@ -1548,6 +1548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 8698270950472442680}
   staminaBar: {fileID: 6107539392844881393}
+  armorBar: {fileID: 9206987356209722104}
   ammoText: {fileID: 1889601116924018036}
   statsText: {fileID: 2591784610822376042}
   playerStats: {fileID: 11400000, guid: e481f130a49278f46b4bab113a6a40b9, type: 2}

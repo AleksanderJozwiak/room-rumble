@@ -7,6 +7,7 @@ public class PlayerUIManager : MonoBehaviour
     [Header("UI Elements")]
     public Slider healthBar;
     public Slider staminaBar;
+    public Slider armorBar;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI statsText;
 
@@ -17,10 +18,18 @@ public class PlayerUIManager : MonoBehaviour
 
     private void Start()
     {
+        playerStats.maxAmmo = 8;
+        playerStats.damage = 20;
+        playerStats.movementSpeed = 5;
+        playerStats.fireRate = 1;
+        playerStats.criticalChance = 10;
+        playerStats.reloadSpeed = 3;
+        playerStats.armor = 0;
         playerStats.currentHealth = playerStats.maxHealth;
         playerStats.currentStamina = playerStats.maxStamina;
         UpdateHealthBar();
         UpdateStaminaBar();
+        UpdateArmorBar();
         UpdateAmmoText(0);
         UpdateStatsText();
     }
@@ -34,6 +43,11 @@ public class PlayerUIManager : MonoBehaviour
     {
         staminaBar.value = playerStats.currentStamina / playerStats.maxStamina;
     }
+    
+    public void UpdateArmorBar()
+    {
+        armorBar.value = playerStats.armor / 100;
+    }
 
     public void UpdateAmmoText(int currentAmmo)
     {
@@ -42,7 +56,8 @@ public class PlayerUIManager : MonoBehaviour
 
     public void UpdateStatsText()
     {
-        statsText.text = $"Fire Rate: {playerStats.fireRate}s\n" +
+        statsText.text = $"Move speed: {playerStats.movementSpeed}\n" +
+                         $"Fire Rate: {playerStats.fireRate}s\n" +
                          $"Crit Chance: {playerStats.criticalChance}%\n" +
                          $"Reload Speed: {playerStats.reloadSpeed}s";
     }

@@ -6,7 +6,7 @@ public class DungeonGenerator : MonoBehaviour
 {
     public GameObject[] roomPrefabs;   
     public int roomCount = 50;
-    private const int gridSize = 40;
+    private const int gridSize = 30;
     private const int maxPlacementAttempts = 1000;
 
     private readonly List<GameObject> generatedRooms = new();
@@ -107,6 +107,7 @@ public class DungeonGenerator : MonoBehaviour
                 continue;
             }
             room.GenerateObjects();
+            room.GeneratePowerUp();
         }
     }
 

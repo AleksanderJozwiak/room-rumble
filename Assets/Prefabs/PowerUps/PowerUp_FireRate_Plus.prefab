@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 8298453456509564886}
   - component: {fileID: 4348626963833395530}
   - component: {fileID: 7888338713175127755}
+  - component: {fileID: 3455448562531541255}
   m_Layer: 0
   m_Name: PowerUp_FireRate_Plus
   m_TagString: Untagged
@@ -248,10 +249,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7686931566520729259}
+  - {fileID: 705068402452243900}
   - {fileID: 6934983347506218609}
   - {fileID: 785325966633908812}
-  - {fileID: 5707395875606373788}
+  - {fileID: 5241634928452518512}
   - {fileID: 8246980213085577714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -297,6 +298,29 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3455448562531541255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6266695465054196741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e7f460c8b45984ca6df114751c32d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBoost: 0
+  staminaBoost: 0
+  ammoBoost: 0
+  damageBoost: 0
+  armorBoost: 0
+  fireRateBoost: 0.2
+  criticalChanceBoost: 0
+  reloadSpeedBoost: 0
+  movementSpeedBoost: 0
+  pickupEffect: {fileID: 7920775501591023502, guid: 7d24329d8a3da5c4aa3f30a66b5ec4c2,
+    type: 3}
 --- !u!1001 &967342303706865063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -509,7 +533,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d285ee06ba4fa44bb74ee8dd4318fc3, type: 3}
---- !u!4 &7686931566520729259 stripped
+--- !u!4 &705068402452243900 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d285ee06ba4fa44bb74ee8dd4318fc3,
     type: 3}
@@ -618,7 +642,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d285ee06ba4fa44bb74ee8dd4318fc3, type: 3}
---- !u!4 &5707395875606373788 stripped
+--- !u!4 &5241634928452518512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d285ee06ba4fa44bb74ee8dd4318fc3,
     type: 3}
