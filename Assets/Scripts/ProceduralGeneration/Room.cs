@@ -12,7 +12,7 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        //GenerateObjects();
+
     }
 
     void Update()

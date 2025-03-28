@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public GameObject[] roomPrefabs;   
-    public int roomCount = 50;
+    public GameObject[] roomPrefabs;
+    public GameObject portalRoomPrefabs;
+    [SerializeField]
+    private int roomCount = 3;
     private const int gridSize = 30;
     private const int maxPlacementAttempts = 1000;
 
@@ -19,6 +21,7 @@ public class DungeonGenerator : MonoBehaviour
 
     void Start()
     {
+        roomCount = 3 + (GameManager.Instance.GetLevel() * 2);
         GenerateDungeon();
         BakeNavMesh();
     }
@@ -80,6 +83,17 @@ public class DungeonGenerator : MonoBehaviour
 
             totalPlacementAttempts++;
         }
+        bool portalRoomPlaced = false;
+
+        while (!portalRoomPlaced && frontierPositions.Count > 0)
+        {
+            Vector2 potentialPosition = frontierPositions.Dequeue();
+
+            portalRoomPlaced = PlacePortalRoom(potentialPosition);
+            if (portalRoomPlaced) break;    
+        }
+
+
 
         bool isFirstRoom = true;
         BakeNavMesh();
@@ -134,6 +148,41 @@ public class DungeonGenerator : MonoBehaviour
         occupiedPositions.Add(gridPosition);
 
         return true;
+    }
+    
+    bool PlacePortalRoom(Vector2 gridPosition)
+    {
+        if (gridPosition == Vector2.negativeInfinity || occupiedPositions.Contains(gridPosition))
+        {
+            Debug.LogWarning("Position already occupied, cannot place the first room here.");
+            return false;
+        }
+
+        for (int rotation = 0; rotation < 4; rotation++)
+        {
+            Vector3 position = new Vector3(gridPosition.x * gridSize, 0, gridPosition.y * gridSize);
+            Quaternion rotationAngle = Quaternion.Euler(0, rotation * 90, 0);
+
+            if (ConnectsWithExistingRoom(portalRoomPrefabs, position, rotationAngle))
+            {
+                GameObject newRoom = Instantiate(portalRoomPrefabs);
+                newRoom.transform.SetPositionAndRotation(position, rotationAngle);
+                generatedRooms.Add(newRoom);
+                occupiedPositions.Add(gridPosition);
+
+                foreach (Transform doorTransform in GetDoors(newRoom))
+                {
+                    if (!ConnectsWithAnyOtherDoor(doorTransform))
+                    {
+                        unusedDoors.Add(doorTransform);
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     bool PlaceRoomWithConnection(int prefabIndex, Vector2 gridPosition)
