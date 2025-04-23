@@ -5510,6 +5510,37 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!1 &6102044730371440480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448910417323842913}
+  m_Layer: 0
+  m_Name: CenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448910417323842913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102044730371440480}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4999995, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6869859375633481257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5044251772754720156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5646,17 +5677,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 89a85de90dd88a74791718384163934e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.15
+      value: -0.48260164
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89a85de90dd88a74791718384163934e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0.00014352798
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89a85de90dd88a74791718384163934e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.96
+      value: -10.811678
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89a85de90dd88a74791718384163934e,
         type: 3}
@@ -5775,6 +5806,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4369324254763288487}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89a85de90dd88a74791718384163934e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448910417323842913}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89a85de90dd88a74791718384163934e,
         type: 3}
@@ -5985,9 +6020,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: af0e52f781faa004ab3bdd55712dddd3, type: 2}
+  center: {fileID: 1448910417323842913}
   firePoint: {fileID: 1548991722794647896}
   projectilePrefab: {fileID: 7992545095804596949, guid: 432a85896b8d958419b3a42fb4b51dea,
     type: 3}
+  isHeavy: 0
   muzzleFlash: {fileID: 9165971987059997719}
   gunAudioSource: {fileID: 8723305591318455559}
   fireSound: {fileID: 8300000, guid: cb0ea27a8da4675429ec5a02a8826e88, type: 3}

@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2790063622134828402}
   m_LocalEulerAnglesHint: {x: 6, y: 0, z: 0}
+--- !u!1 &3511489910786793461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5106815694418137967}
+  m_Layer: 0
+  m_Name: CenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5106815694418137967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511489910786793461}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5000014, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2790063622134828402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4567464635593280087
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,17 +522,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.521701
+      value: 4.340176
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00014162064
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.293766
+      value: -6.9943495
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
@@ -668,6 +699,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 5106815694418137967}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
+        type: 3}
       insertIndex: -1
       addedObject: {fileID: 6461545622913923947}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f27dc900e5d6e5441b316735cb08eaae,
@@ -794,9 +829,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 3705346b8453bd2429ee8a7fd9b290f5, type: 2}
+  center: {fileID: 5106815694418137967}
   firePoint: {fileID: 6461545622913923947}
   projectilePrefab: {fileID: 7992545095804596949, guid: a7ba05cd7e4f38b4f8d79afc09c9c7fa,
     type: 3}
+  isHeavy: 0
   muzzleFlash: {fileID: 8478559493970096804}
   gunAudioSource: {fileID: 712180027763724364}
   fireSound: {fileID: 8300000, guid: cb0ea27a8da4675429ec5a02a8826e88, type: 3}

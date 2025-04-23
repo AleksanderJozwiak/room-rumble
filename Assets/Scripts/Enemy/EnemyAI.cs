@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     public EnemyData enemyData;
     private Transform player;
+    public Transform center;
     public Transform firePoint;
     public GameObject projectilePrefab;
     private NavMeshAgent agent;
@@ -15,6 +16,12 @@ public class EnemyAI : MonoBehaviour
 
     private bool playerInSightRange;
     private bool playerInAttackRange;
+
+    [Header("Enemy Behavior")]
+    public bool isHeavy = false;
+
+    private bool hasLineOfSight;
+    private Coroutine attackLoopCoroutine;
 
     [Header("Effects")]
     public ParticleSystem muzzleFlash;
@@ -40,9 +47,27 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        playerInSightRange = distanceToPlayer <= enemyData.sightRange;
-        playerInAttackRange = distanceToPlayer <= enemyData.attackRange;
+        float distanceToPlayer = Vector3.Distance(center.transform.position, player.position);
+
+        // Line of sight check
+        hasLineOfSight = false;
+        RaycastHit hit;
+        Vector3 directionToPlayer = (player.position - center.transform.position).normalized;
+        Vector3 rayOrigin = center.transform.position + new Vector3(0, 0.5f ,0);
+
+        Debug.DrawRay(rayOrigin, directionToPlayer * enemyData.sightRange, Color.red);
+
+        if (Physics.Raycast(rayOrigin, directionToPlayer, out hit, enemyData.sightRange))
+        {
+                Debug.Log(hit.collider.tag);
+            if (hit.collider.CompareTag("Player"))
+            {
+                hasLineOfSight = true;
+            }
+        }
+
+        playerInSightRange = distanceToPlayer <= enemyData.sightRange && hasLineOfSight;
+        playerInAttackRange = distanceToPlayer <= enemyData.attackRange && hasLineOfSight;
 
         if (playerInAttackRange)
         {
@@ -53,18 +78,67 @@ public class EnemyAI : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(direction);
             }
-            if (canAttack)
+
+            if (isHeavy)
             {
-                StartCoroutine(Attack());
+                if (canAttack)
+                    StartCoroutine(Attack());
+            }
+            else
+            {
+                if (attackLoopCoroutine == null)
+                    attackLoopCoroutine = StartCoroutine(AttackLoop());
             }
         }
         else if (playerInSightRange)
         {
+            StopAttackLoop();
             ChasePlayer();
         }
         else
         {
+            StopAttackLoop();
             Patrol();
+        }
+    }
+
+    private IEnumerator AttackLoop()
+    {
+        while (true)
+        {
+            float attackDuration = Random.Range(3f, 6f);
+            float elapsed = 0f;
+
+            while (elapsed < attackDuration && playerInAttackRange && hasLineOfSight)
+            {
+                if (canAttack)
+                {
+                    StartCoroutine(Attack());
+                }
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            Vector3 offset = Random.insideUnitSphere * 2f;
+            offset.y = 0;
+            Vector3 moveTarget = transform.position + offset;
+
+            if (NavMesh.SamplePosition(moveTarget, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+                yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance < 0.5f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void StopAttackLoop()
+    {
+        if (attackLoopCoroutine != null)
+        {
+            StopCoroutine(attackLoopCoroutine);
+            attackLoopCoroutine = null;
         }
     }
 

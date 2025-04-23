@@ -18,15 +18,6 @@ public class PlayerUIManager : MonoBehaviour
 
     private void Start()
     {
-        playerStats.maxAmmo = 8;
-        playerStats.damage = 20;
-        playerStats.movementSpeed = 5;
-        playerStats.fireRate = 1;
-        playerStats.criticalChance = 10;
-        playerStats.reloadSpeed = 3;
-        playerStats.armor = 0;
-        playerStats.currentHealth = playerStats.maxHealth;
-        playerStats.currentStamina = playerStats.maxStamina;
         UpdateHealthBar();
         UpdateStaminaBar();
         UpdateArmorBar();
