@@ -14398,11 +14398,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7865844717564949466, guid: 50fe75608b6c3914a95769edf208f952,
-        type: 3}
-      propertyPath: powerUpSpawnPoint
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

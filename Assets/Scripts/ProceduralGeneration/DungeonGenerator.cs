@@ -17,6 +17,8 @@ public class DungeonGenerator : MonoBehaviour
     private readonly List<Transform> unusedDoors = new(); 
     private readonly HashSet<Vector2> queuedPositions = new();
 
+    private Dictionary<Vector2, GameObject> roomMap = new();
+
     public NavMeshSurface navMeshSurface;
 
     void Start()
@@ -24,6 +26,7 @@ public class DungeonGenerator : MonoBehaviour
         roomCount = 3 + (GameManager.Instance.GetLevel() * 2);
         GenerateDungeon();
         BakeNavMesh();
+        InitMinimap();
     }
 
     void BakeNavMesh()
@@ -124,6 +127,13 @@ public class DungeonGenerator : MonoBehaviour
             room.GeneratePowerUp();
         }
     }
+    void InitMinimap()
+    {
+        MinimapManager minimap = FindObjectOfType<MinimapManager>();
+        minimap.InitializeMinimap(roomMap);
+
+        //minimap.RevealRoom(Vector2.zero, true);
+    }
 
     bool IsNegativeInfinity(Vector2 position)
     {
@@ -147,6 +157,9 @@ public class DungeonGenerator : MonoBehaviour
         generatedRooms.Add(newRoom);
         occupiedPositions.Add(gridPosition);
 
+        roomMap[gridPosition] = newRoom;
+        room.SetGridPosition(gridPosition);
+
         return true;
     }
     
@@ -169,6 +182,10 @@ public class DungeonGenerator : MonoBehaviour
                 newRoom.transform.SetPositionAndRotation(position, rotationAngle);
                 generatedRooms.Add(newRoom);
                 occupiedPositions.Add(gridPosition);
+
+                Room room = newRoom.GetComponent<Room>();
+                roomMap[gridPosition] = newRoom;
+                room.SetGridPosition(gridPosition);
 
                 foreach (Transform doorTransform in GetDoors(newRoom))
                 {
@@ -207,6 +224,10 @@ public class DungeonGenerator : MonoBehaviour
                 generatedRooms.Add(newRoom);
                 occupiedPositions.Add(gridPosition);
 
+                Room room = newRoom.GetComponent<Room>();
+                roomMap[gridPosition] = newRoom;
+                room.SetGridPosition(gridPosition);
+
                 foreach (Transform doorTransform in GetDoors(newRoom))
                 {
                     if (!ConnectsWithAnyOtherDoor(doorTransform))
@@ -233,7 +254,7 @@ public class DungeonGenerator : MonoBehaviour
 
         foreach (Vector2 pos in adjacentPositions)
         {
-            if (!occupiedPositions.Contains(pos) && queuedPositions.Add(pos)) // Add only if not already queued
+            if (!occupiedPositions.Contains(pos) && queuedPositions.Add(pos))
             {
                 frontierPositions.Enqueue(pos);
             }

@@ -1299,6 +1299,7 @@ MonoBehaviour:
   - {fileID: 526254057449011934, guid: 8665b985c1b106545b5ff1f580d53a7f, type: 3}
   - {fileID: 1204768170836104757, guid: 03f4c6678b3387a479b683fefabcb243, type: 3}
   - {fileID: 6557665821872521414, guid: a68596ce6b1eb3b45afb571b2bef3163, type: 3}
+  roomType: 1
 --- !u!4 &2930663021347058119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5709a70c80cc22b4489edb76d64480ad,

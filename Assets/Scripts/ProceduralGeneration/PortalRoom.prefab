@@ -2936,6 +2936,7 @@ MonoBehaviour:
   powerUps: []
   powerUpSpawnPoint: {fileID: 0}
   objectsToSpawn: []
+  roomType: 3
 --- !u!1001 &2786579670970880371
 PrefabInstance:
   m_ObjectHideFlags: 0

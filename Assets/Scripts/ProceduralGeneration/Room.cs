@@ -2,6 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum RoomType
+{
+    S,
+    L,
+    I,
+    Portal
+}
+
 public class Room : MonoBehaviour
 {
     public Door[] Doors;
@@ -10,14 +18,21 @@ public class Room : MonoBehaviour
     public Transform powerUpSpawnPoint;
     public List<GameObject> objectsToSpawn = new();
 
-    void Start()
-    {
+    private bool hasBeenEntered = false;
+    private MinimapManager minimapManager;  
 
+    public Vector2 GridPosition { get; private set; }
+
+    public RoomType roomType;
+
+    private void Start()
+    {
+        minimapManager = FindObjectOfType<MinimapManager>();
     }
 
-    void Update()
+    public void SetGridPosition(Vector2 pos)
     {
-
+        GridPosition = pos;
     }
 
     public void OpenAllPossibleDoors()
@@ -46,7 +61,6 @@ public class Room : MonoBehaviour
                 GameObject objToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Count)];
                 Vector3 spawnPosition = new Vector3(spawnPoint.position.x, objToSpawn.transform.position.y, spawnPoint.position.z);
 
-                // Generate a random Y-axis rotation
                 Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
 
                 Instantiate(objToSpawn, spawnPosition, randomRotation);
@@ -70,4 +84,22 @@ public class Room : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            OnPlayerEnteredRoom();
+        }
+    }
+
+    void OnPlayerEnteredRoom()
+    {
+        if (hasBeenEntered) return;
+        hasBeenEntered = true;
+
+        // Notify the Minimap
+        minimapManager.RevealRoom(GridPosition, true);
+
+        // You could also notify a RoomManager or GameManager if needed
+    }
 }
