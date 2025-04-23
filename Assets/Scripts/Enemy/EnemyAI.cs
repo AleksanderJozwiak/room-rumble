@@ -49,17 +49,14 @@ public class EnemyAI : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(center.transform.position, player.position);
 
-        // Line of sight check
         hasLineOfSight = false;
-        RaycastHit hit;
         Vector3 directionToPlayer = (player.position - center.transform.position).normalized;
         Vector3 rayOrigin = center.transform.position + new Vector3(0, 0.5f ,0);
 
-        Debug.DrawRay(rayOrigin, directionToPlayer * enemyData.sightRange, Color.red);
+        //Debug.DrawRay(rayOrigin, directionToPlayer * enemyData.sightRange, Color.red);
 
-        if (Physics.Raycast(rayOrigin, directionToPlayer, out hit, enemyData.sightRange))
+        if (Physics.Raycast(rayOrigin, directionToPlayer, out RaycastHit hit, enemyData.sightRange))
         {
-                Debug.Log(hit.collider.tag);
             if (hit.collider.CompareTag("Player"))
             {
                 hasLineOfSight = true;
@@ -71,7 +68,7 @@ public class EnemyAI : MonoBehaviour
 
         if (playerInAttackRange)
         {
-            agent.SetDestination(transform.position);
+            
             Vector3 direction = player.position - transform.position;
             direction.y = 0;
             if (direction != Vector3.zero)
@@ -106,7 +103,9 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            float attackDuration = Random.Range(3f, 6f);
+            agent.isStopped = true;
+
+            float attackDuration = Random.Range(0.7f, 2f);
             float elapsed = 0f;
 
             while (elapsed < attackDuration && playerInAttackRange && hasLineOfSight)
@@ -119,13 +118,14 @@ public class EnemyAI : MonoBehaviour
                 yield return null;
             }
 
-            Vector3 offset = Random.insideUnitSphere * 2f;
-            offset.y = 0;
-            Vector3 moveTarget = transform.position + offset;
-
-            if (NavMesh.SamplePosition(moveTarget, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            float distanceRange = Random.Range(2f, 5f);
+            Vector3 randomDirection = Random.insideUnitSphere * distanceRange;
+            randomDirection += transform.position;
+            if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, distanceRange, NavMesh.AllAreas))
             {
+                agent.isStopped = false;
                 agent.SetDestination(hit.position);
+                //Debug.DrawLine(transform.position, hit.position, Color.green, 1f);
                 yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance < 0.5f);
             }
 
@@ -144,11 +144,13 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        agent.isStopped = false;
         agent.SetDestination(player.position);
     }
 
     private void Patrol()
     {
+        agent.isStopped = false;
         if (!agent.pathPending && agent.remainingDistance < 1f)
         {
             SetNewPatrolTarget();
@@ -159,8 +161,7 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 randomDirection = Random.insideUnitSphere * 10f;
         randomDirection += transform.position;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 10f, NavMesh.AllAreas))
         {
             patrolTarget = hit.position;
             agent.SetDestination(patrolTarget);
