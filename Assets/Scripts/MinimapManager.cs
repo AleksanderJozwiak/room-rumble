@@ -14,15 +14,16 @@ public class MinimapManager : MonoBehaviour
     private RectTransform playerDot;
     private Transform player;
     private Vector2 currentRoomGridPos;
-    private float worldRoomSize = 30f; // same as grid size in DungeonGenerator
+    private float worldRoomSize = 30f; 
 
     private float roomSize = 30f;
+
+    private Dictionary<Vector2, GameObject> miniMapRooms = new();
 
     void Update()
     {
         if (playerDot == null || player == null) return;
 
-        // Local offset from center of room, normalized
         Vector3 playerWorldPos = player.position;
         Vector2 roomWorldCenter = new Vector2(currentRoomGridPos.x * worldRoomSize, currentRoomGridPos.y * worldRoomSize);
         Vector2 localOffset = new Vector2(
@@ -30,13 +31,10 @@ public class MinimapManager : MonoBehaviour
             playerWorldPos.z - roomWorldCenter.y
         );
 
-        // Normalize offset based on room size (so it’s -0.5 to 0.5 range)
         Vector2 normalizedOffset = localOffset / worldRoomSize;
 
-        // Convert to UI offset
         Vector2 iconOffset = normalizedOffset * roomSize;
 
-        // Final anchored position
         playerDot.anchoredPosition = currentRoomGridPos * roomSize + iconOffset;
     }
 
@@ -74,19 +72,26 @@ public class MinimapManager : MonoBehaviour
                 Quaternion.Euler(0, 0, 360-room.gameObject.transform.rotation.eulerAngles.y)
             );
 
-            //icon.SetActive(false); // Hidden until visited
 
-            //roomIcons[gridPos] = icon;
+            miniMapRooms[gridPos] = icon;
 
-            // Optional: special icon for portal
             //if (room is PortalRoom)
             //    icon.GetComponent<Image>().sprite = portalRoomSprite;
         }
         playerDot = Instantiate(playerDotPrefab, minimapParent).GetComponent<RectTransform>();
         TrackPlayer(GameObject.FindGameObjectWithTag("Player").transform, new Vector2(0, 0));
     }
+    
+    public void RoomEntered(Vector2 position)
+    {
+        Debug.Log(position.x + " " + position.y);
+        if (miniMapRooms.TryGetValue(position, out GameObject icon))
+        {
+            icon.GetComponent<Image>().color = Color.green;
+        }
+    }
 
-    public void RevealRoom(Vector2 position, bool isPlayerHere)
+    public void RoomCleared(Vector2 position, bool isPlayerHere)
     {
         //if (roomIcons.TryGetValue(position, out GameObject icon))
         //{
@@ -94,7 +99,6 @@ public class MinimapManager : MonoBehaviour
         //    icon.GetComponent<Image>().sprite = isPlayerHere ? playerRoomSprite : defaultRoomSprite;
         //}
 
-        //// Reset other rooms if player moved
         //foreach (var kvp in roomIcons)
         //{
         //    if (kvp.Key != position && kvp.Value.activeSelf)

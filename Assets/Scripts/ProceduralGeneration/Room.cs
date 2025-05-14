@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,8 +19,11 @@ public class Room : MonoBehaviour
     public Transform powerUpSpawnPoint;
     public List<GameObject> objectsToSpawn = new();
 
+    public List<GameObject> gatesToControl = new();
     private bool hasBeenEntered = false;
-    private MinimapManager minimapManager;  
+    private bool roomCleared = false;
+    private MinimapManager minimapManager;
+    private List<GameObject> activeEnemies = new();
 
     public Vector2 GridPosition { get; private set; }
 
@@ -56,14 +60,22 @@ public class Room : MonoBehaviour
 
         foreach (Transform spawnPoint in spawnPoints)
         {
-            if (Random.value <= 0.75f) // 75% chance to spawn
+            if (Random.value <= 0.75f)
             {
                 GameObject objToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Count)];
                 Vector3 spawnPosition = new Vector3(spawnPoint.position.x, objToSpawn.transform.position.y, spawnPoint.position.z);
-
                 Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                GameObject spawned = Instantiate(objToSpawn, spawnPosition, randomRotation);
 
-                Instantiate(objToSpawn, spawnPosition, randomRotation);
+                if (spawned.CompareTag("Enemy"))
+                {
+                    activeEnemies.Add(spawned);
+                    Health enemyHealthScript = spawned.GetComponent<Health>();
+                    if (enemyHealthScript != null)
+                    {
+                        enemyHealthScript.SetRoom(this);
+                    }
+                }
             }
         }
     }
@@ -79,7 +91,6 @@ public class Room : MonoBehaviour
         {
             GameObject objToSpawn = powerUps[Random.Range(0, powerUps.Count)];
             Vector3 spawnPosition = new Vector3(powerUpSpawnPoint.position.x, objToSpawn.transform.position.y, powerUpSpawnPoint.position.z);
-
             Instantiate(objToSpawn, spawnPosition, objToSpawn.transform.rotation);
         }
     }
@@ -91,15 +102,68 @@ public class Room : MonoBehaviour
             OnPlayerEnteredRoom();
         }
     }
-
+    
     void OnPlayerEnteredRoom()
     {
         if (hasBeenEntered) return;
         hasBeenEntered = true;
 
-        // Notify the Minimap
-        minimapManager.RevealRoom(GridPosition, true);
+        if (activeEnemies.Count > 0)
+        {
+            foreach (GameObject gate in gatesToControl)
+            {
+                LowerGates();
+            }
+        }
 
-        // You could also notify a RoomManager or GameManager if needed
+        if (minimapManager != null)
+            minimapManager.RoomEntered(GridPosition);
     }
+
+    public void NotifyEnemyDefeated(GameObject enemy)
+    {
+        activeEnemies.Remove(enemy);
+
+        if (!roomCleared && activeEnemies.Count == 0)
+        {
+            roomCleared = true;
+            //minimapManager.RoomCleared(GridPosition, true);
+            OpenGates();
+        }
+    }
+
+    public void LowerGates()
+    {
+        foreach (GameObject gate in gatesToControl)
+        {
+            StartCoroutine(MoveGate(gate, 0f));
+        }
+    }
+
+    public void OpenGates()
+    {
+        foreach (GameObject gate in gatesToControl)
+        {
+            StartCoroutine(MoveGate(gate, 4.5f));
+        }
+    }
+
+    private IEnumerator MoveGate(GameObject gate, float targetY)
+    {
+        float duration = 0.3f;
+        float elapsed = 0f;
+
+        Vector3 startPos = gate.transform.position;
+        Vector3 endPos = new Vector3(startPos.x, targetY, startPos.z);
+
+        while (elapsed < duration)
+        {
+            gate.transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        gate.transform.position = endPos;
+    }
+
 }

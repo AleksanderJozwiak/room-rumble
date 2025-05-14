@@ -639,6 +639,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Quick Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f27dc900e5d6e5441b316735cb08eaae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1846523110139326594, guid: f27dc900e5d6e5441b316735cb08eaae,
         type: 3}
       propertyPath: m_LocalRotation.w

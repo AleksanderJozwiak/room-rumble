@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
 
+    private Room room;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -16,7 +18,6 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log(gameObject.name + " took " + damage + " damage.");
 
         if (currentHealth <= 0)
         {
@@ -24,10 +25,19 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void SetRoom(Room roomReference)
+    {
+        room = roomReference;
+    }
+
+
     private void Die()
     {
-        // Logika œmierci obiektu
-        Debug.Log(gameObject.name + " has died.");
+        if (room != null)
+        {
+            room.NotifyEnemyDefeated(gameObject);
+        }
+
         Destroy(gameObject);
     }
 }
