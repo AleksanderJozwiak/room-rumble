@@ -17,7 +17,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject comfirmationPrompt = null;
 
     [Header("Levels To Load")]
-    public string _newGameLevel;
+    public string EndlessScene;
+    public string StoryScene;
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog = null;
 
@@ -26,11 +27,20 @@ public class MenuController : MonoBehaviour
 
     private bool isPaused = false;
 
-    public void NewGameDialogYes()
+    public void NewGameDialogYesEndless()
     {
+        GameManager.Instance.currentGameMode = GameManager.GameMode.Endless;
+        Time.timeScale = 1f;
+        GameManager.Instance.SetLevel(1);
+        SceneManager.LoadScene(EndlessScene);
+    }
+    
+    public void NewGameDialogYesStory()
+    {
+        GameManager.Instance.currentGameMode = GameManager.GameMode.StoryMode;
         Time.timeScale = 1f;
         GameManager.Instance.SetLevel(0);
-        SceneManager.LoadScene(_newGameLevel);
+        SceneManager.LoadScene(StoryScene);
     }
 
     void Update()
@@ -56,6 +66,21 @@ public class MenuController : MonoBehaviour
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    public void ResumeButton()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        mainMenuUI.SetActive(false);
+    }
+    
+    public void MainMenuButton()
+    {
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        mainMenuUI.SetActive(false);
+        SceneManager.LoadScene("main_menu");
     }
 
     public void LoadGameDialogYes()

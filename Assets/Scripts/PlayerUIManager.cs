@@ -15,6 +15,10 @@ public class PlayerUIManager : MonoBehaviour
     public PlayerStats playerStats;
 
     public GameObject playerDeathUI;
+    
+    [Header("Player Stats")]
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI scoreText;
 
     private void Start()
     {
@@ -23,6 +27,27 @@ public class PlayerUIManager : MonoBehaviour
         UpdateArmorBar();
         UpdateAmmoText(0);
         UpdateStatsText();
+    }
+
+    void Update()
+    {
+        if (GameManager.Instance == null) return;
+
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.Endless)
+        {
+            float time = GameManager.Instance.gameTime;
+            int minutes = Mathf.FloorToInt(time / 60F);
+            int seconds = Mathf.FloorToInt(time % 60F);
+            timeText.text = $"{minutes:00}:{seconds:00}";
+
+            scoreText.text = $"Score: {GameManager.Instance.score}";
+        }
+        else
+        {
+            timeText.gameObject.SetActive(false);
+            scoreText.gameObject.SetActive(false);
+        }
+        
     }
 
     public void UpdateHealthBar()

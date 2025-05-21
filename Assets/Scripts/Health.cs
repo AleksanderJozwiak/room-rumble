@@ -33,6 +33,11 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddScore((int)maxHealth);
+        }
+
         if (room != null)
         {
             room.NotifyEnemyDefeated(gameObject);
@@ -40,5 +45,6 @@ public class Health : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 }
 

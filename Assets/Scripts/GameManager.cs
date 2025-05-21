@@ -8,6 +8,18 @@ public class GameManager : MonoBehaviour
 
     private int currentLevel = 0;
 
+    // Tryb endless 
+    public float gameTime = 0f; 
+    public int score = 0;
+
+    public GameMode currentGameMode;
+
+    public enum GameMode
+    {
+        Endless,
+        StoryMode
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,11 +33,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        gameTime += Time.deltaTime;
+    }
+
+    public void AddScore(int points)
+    {
+        score += points;
+    }
+
     public void SetLevel(int level)
     {
         if (currentLevel == 0)
         {
             ResetStats();
+            if (currentGameMode == GameMode.Endless)
+            {
+                gameTime = 0f;
+                score = 0;
+            }
         }
         currentLevel = level;
     }
