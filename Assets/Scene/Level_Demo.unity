@@ -14116,6 +14116,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132622811}
   m_CullTransparentMesh: 1
+--- !u!1 &2140390508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1611507786763884413, guid: b3c0f4b72dacb1445ade0461e76e34f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 125188472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3804494077779790385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14397,6 +14403,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888054850613553343, guid: 50fe75608b6c3914a95769edf208f952,
+        type: 3}
+      propertyPath: PortalInteractionText
+      value: 
+      objectReference: {fileID: 2140390508}
+    - target: {fileID: 6204930319775294661, guid: 50fe75608b6c3914a95769edf208f952,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139497173697025292, guid: 50fe75608b6c3914a95769edf208f952,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428774035739487966, guid: 50fe75608b6c3914a95769edf208f952,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

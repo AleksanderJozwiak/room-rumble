@@ -5,6 +5,22 @@ public class PortalInteraction : MonoBehaviour
 {
     public string sceneToLoad;
     private bool isPlayerNear = false;
+    private GameObject PortalInteractionText;
+
+    void Awake()
+    {
+        PortalInteractionText = GameObject.FindGameObjectWithTag("PortalInteractionText");
+
+        if (PortalInteractionText == null)
+        {
+            Debug.LogError("PortalInteractionText GameObject not found. Please ensure it's tagged correctly.");
+        }
+        else
+        {
+            PortalInteractionText.SetActive(false);
+        }
+    }
+
 
     void Update()
     {
@@ -19,7 +35,7 @@ public class PortalInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
-            Debug.Log("Press 'F' to enter the portal.");
+            PortalInteractionText.SetActive(true);
         }
     }
 
@@ -28,6 +44,7 @@ public class PortalInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
+            PortalInteractionText.SetActive(false);
         }
     }
 
