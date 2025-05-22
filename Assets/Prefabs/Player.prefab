@@ -228,8 +228,8 @@ MonoBehaviour:
   tracerSpeed: 100
   tracerLifetime: 0.1
   muzzleFlash: {fileID: 6628060570728568171}
-  gunAudioSource: {fileID: 7544060547944042158}
-  fireSound: {fileID: 8300000, guid: 75d5794d597b959478a5ba39bd497c54, type: 3}
+  gunAudioClip: {fileID: 8300000, guid: 223a076210bd60a4cb83d42b9ae43aa8, type: 3}
+  gunAudioVolume: 1
   reloadSound: {fileID: 8300000, guid: 46b6ece5ca6051e4db5fae612a1e697d, type: 3}
   muzzleFlashLight: {fileID: 1439734156598468379}
   flashDuration: 0.1

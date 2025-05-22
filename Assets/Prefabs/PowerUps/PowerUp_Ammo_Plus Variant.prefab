@@ -428,3 +428,5 @@ MonoBehaviour:
   movementSpeedBoost: 0
   pickupEffect: {fileID: 1438126944380138118, guid: 3f92fe9f710492448aee7d5cfdaef889,
     type: 3}
+  powerUpSoundClip: {fileID: 8300000, guid: c31677beb2678f9469e2efaef0818323, type: 3}
+  powerUpSoundVolume: 1

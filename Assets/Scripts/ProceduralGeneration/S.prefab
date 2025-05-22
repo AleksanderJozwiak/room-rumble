@@ -3215,7 +3215,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
@@ -3514,6 +3514,8 @@ MonoBehaviour:
   - {fileID: 7006739450839589489}
   - {fileID: 3359560909797668284}
   roomType: 0
+  portalSoundClip: {fileID: 0}
+  portalSoundVolume: 1
 --- !u!54 &8260193495158232423
 Rigidbody:
   m_ObjectHideFlags: 0

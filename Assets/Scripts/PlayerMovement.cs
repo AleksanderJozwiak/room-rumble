@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     public float footstepInterval = 0.5f;
     private float footstepTimer;
 
+    [Header("JumpSettings")]
+    [SerializeField] private AudioClip jumpSoundClip;
+    [SerializeField] private float jumpSoundVolume = 1f;
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -93,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform, jumpSoundVolume);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 

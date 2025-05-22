@@ -29,6 +29,10 @@ public class Room : MonoBehaviour
 
     public RoomType roomType;
 
+    [Header("SoundFX")]
+    [SerializeField] private AudioClip portalSoundClip;
+    [SerializeField] private float portalSoundVolume = 1f;
+
     private void Start()
     {
         minimapManager = FindObjectOfType<MinimapManager>();
@@ -118,6 +122,8 @@ public class Room : MonoBehaviour
 
         if (minimapManager != null)
             minimapManager.RoomEntered(GridPosition);
+
+        SoundFXManager.instance.PlaySoundFXClip(portalSoundClip, transform, portalSoundVolume);
     }
 
     public void NotifyEnemyDefeated(GameObject enemy)

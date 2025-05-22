@@ -824,8 +824,9 @@ MonoBehaviour:
     type: 3}
   isHeavy: 0
   muzzleFlash: {fileID: 4531604397812262669}
-  gunAudioSource: {fileID: 55145732759969222}
-  fireSound: {fileID: 8300000, guid: cb0ea27a8da4675429ec5a02a8826e88, type: 3}
+  fireSoundClip: {fileID: 8300000, guid: c4fc4724c62eebe44a2f1bcab2b296ea, type: 3}
+  fireSoundVolume: 1
+  maxDisctance: 25
   muzzleFlashLight: {fileID: 770621198518885096}
   flashDuration: 0.05
   enemyAnimator: {fileID: 796201244676537952}
@@ -860,25 +861,25 @@ AudioSource:
   m_GameObject: {fileID: 6244048092357115552}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 8d87ef9c0c58b014e9c905d2c915d524,
+  OutputAudioMixerGroup: {fileID: 5920848706823246290, guid: 0b8180f0e148a924694f5860d347d4ec,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 6e4299c001f0acc4a9a494a1309bc46c, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_audioClip: {fileID: 8300000, guid: 40c3298a8c01d824eb4de783d9905849, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 25
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 1
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -908,7 +909,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

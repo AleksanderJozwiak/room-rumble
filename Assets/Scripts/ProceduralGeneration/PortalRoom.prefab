@@ -2938,6 +2938,8 @@ MonoBehaviour:
   objectsToSpawn: []
   gatesToControl: []
   roomType: 3
+  portalSoundClip: {fileID: 8300000, guid: 80667f1f81ec4764ab8c94d640149826, type: 3}
+  portalSoundVolume: 1
 --- !u!1001 &2786579670970880371
 PrefabInstance:
   m_ObjectHideFlags: 0

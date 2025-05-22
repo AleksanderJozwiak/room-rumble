@@ -101,19 +101,19 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    public void SetVolume(float volume)
+    /*public void SetVolume(float volume)
     {
         AudioListener.volume = volume; 
         volumeTextValue.text = volume.ToString("0.0");
-    }
+    }*/
 
-    public void VolumeApply()
+    /*public void VolumeApply()
     {
         PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
         StartCoroutine(ConfirmationBox());
-    }
+    }*/
 
-    public void ResetButton(string MenuType)
+    /*public void ResetButton(string MenuType)
     {
         if(MenuType == "Audio") 
         {
@@ -123,7 +123,7 @@ public class MenuController : MonoBehaviour
             VolumeApply();
         }
         
-    }
+    }*/
 
     public IEnumerator ConfirmationBox()
     {

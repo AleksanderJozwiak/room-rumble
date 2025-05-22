@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/EndlessMode.unity
     guid: 937cf3fd0692e174f9dfd59a62c2e64e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/StoryMode.unity
     guid: ba0b2516222ba4c428633727db7459de
   m_configObjects: {}

@@ -25,8 +25,9 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem muzzleFlash;
-    public AudioSource gunAudioSource;
-    public AudioClip fireSound;
+    public AudioClip fireSoundClip;
+    public float fireSoundVolume = 1f;
+    public float maxDisctance;
 
     [Header("Flash Effect")]
     public Light muzzleFlashLight;
@@ -200,8 +201,8 @@ public class EnemyAI : MonoBehaviour
 
         //enemyAnimator.SetTrigger("Shoot");
 
-        if (gunAudioSource != null && fireSound != null)
-            gunAudioSource.PlayOneShot(fireSound);
+        if (fireSoundClip != null)
+            SoundFXManager.instance.PlaySoundFXClip3D(fireSoundClip, transform, fireSoundVolume, 0f, maxDisctance);
     }
     private IEnumerator DisableFlashAfterTime()
     {

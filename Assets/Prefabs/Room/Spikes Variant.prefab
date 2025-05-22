@@ -162,4 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a0d86f53dc2044f9fa1d3dbb8ee0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spikesSoundClip: {fileID: 8300000, guid: 299677f595b241a49934ed4f05887516, type: 3}
+  spikesSoundVolume: 1
   damage: 30

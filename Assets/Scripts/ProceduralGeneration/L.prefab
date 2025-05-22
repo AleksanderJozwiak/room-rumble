@@ -1506,6 +1506,8 @@ MonoBehaviour:
   - {fileID: 7140932231759999631}
   - {fileID: 1299127367846219048}
   roomType: 1
+  portalSoundClip: {fileID: 0}
+  portalSoundVolume: 1
 --- !u!54 &559244608631235272
 Rigidbody:
   m_ObjectHideFlags: 0

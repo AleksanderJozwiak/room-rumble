@@ -14,7 +14,11 @@ public class PowerUp : MonoBehaviour
     public float movementSpeedBoost;
 
     [Header("Pickup Effects")]
-    public ParticleSystem pickupEffect; 
+    public ParticleSystem pickupEffect;
+
+    [Header("SoundFX")]
+    [SerializeField] private AudioClip powerUpSoundClip;
+    [SerializeField] private float powerUpSoundVolume = 1f;
 
     private PlayerStats playerStats;
     private PlayerUIManager playerUi;
@@ -38,6 +42,7 @@ public class PowerUp : MonoBehaviour
             }
 
             gameObject.SetActive(false);
+            SoundFXManager.instance.PlaySoundFXClip(powerUpSoundClip, transform, powerUpSoundVolume);
         }
     }
 

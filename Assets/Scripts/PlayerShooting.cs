@@ -22,8 +22,8 @@ public class PlayerShooting : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem muzzleFlash;
-    public AudioSource gunAudioSource;
-    public AudioClip fireSound;
+    public AudioClip gunAudioClip;
+    public float gunAudioVolume = 1f;
     public AudioClip reloadSound;
 
     [Header("Flash Effect")]
@@ -85,8 +85,8 @@ public class PlayerShooting : MonoBehaviour
         weaponAnimator.SetBool("isShooting", true);
         weaponAnimator.SetTrigger("Shoot");
 
-        if (gunAudioSource != null && fireSound != null)
-            gunAudioSource.PlayOneShot(fireSound);
+        if (gunAudioClip != null)
+            SoundFXManager.instance.PlaySoundFXClip(gunAudioClip, transform, gunAudioVolume);
 
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out RaycastHit hit, weaponRange, hitLayers))
@@ -105,9 +105,9 @@ public class PlayerShooting : MonoBehaviour
                     hitMarkerUI.enabled = true;
                     StartCoroutine(DisableHitMarker());
                 }
-                if (gunAudioSource != null && hitMarkerSound != null)
+                if (gunAudioClip != null && hitMarkerSound != null)
                 {
-                    gunAudioSource.PlayOneShot(hitMarkerSound);
+                    SoundFXManager.instance.PlaySoundFXClip(gunAudioClip, transform, gunAudioVolume);
                 }
 
                 if (floatingDamagePrefab != null)
@@ -164,9 +164,9 @@ public class PlayerShooting : MonoBehaviour
             weaponAnimator.SetTrigger("Reload");
         }
 
-        if (gunAudioSource != null && reloadSound != null)
+        if (reloadSound != null)
         {
-            gunAudioSource.PlayOneShot(reloadSound);
+            SoundFXManager.instance.PlaySoundFXClip(reloadSound, transform, gunAudioVolume);
         }
 
         yield return new WaitForSeconds(playerStats.reloadSpeed);
