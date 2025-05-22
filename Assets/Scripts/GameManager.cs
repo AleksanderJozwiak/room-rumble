@@ -70,4 +70,23 @@ public class GameManager : MonoBehaviour
         playerStats.currentHealth = playerStats.maxHealth;
         playerStats.currentStamina = playerStats.maxStamina;
     }
+
+    public void CheckAndSaveHighScore()
+    {
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        float bestTime = PlayerPrefs.GetFloat("BestTime", float.MaxValue);
+
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.SetFloat("BestTime", gameTime);
+            PlayerPrefs.Save();
+        }
+        else if (score == highScore && gameTime < bestTime)
+        {
+            PlayerPrefs.SetFloat("BestTime", gameTime);
+            PlayerPrefs.Save();
+        }
+    }
+
 }

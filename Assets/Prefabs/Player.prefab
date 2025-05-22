@@ -1926,6 +1926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1259d467c3d4654cae8aa70f5a7b5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUI: {fileID: 6384521974546043201}
   healthBar: {fileID: 8698270950472442680}
   staminaBar: {fileID: 6107539392844881393}
   armorBar: {fileID: 9206987356209722104}
@@ -1935,6 +1936,10 @@ MonoBehaviour:
   playerDeathUI: {fileID: 0}
   timeText: {fileID: 4464686339067111083}
   scoreText: {fileID: 742836157770743965}
+  currentTimeText: {fileID: 0}
+  currentScoreText: {fileID: 0}
+  highScoreText: {fileID: 0}
+  bestTimeText: {fileID: 0}
 --- !u!1 &4597743672302281972
 GameObject:
   m_ObjectHideFlags: 0
