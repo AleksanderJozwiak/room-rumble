@@ -42,6 +42,11 @@ public class Room : MonoBehaviour
     {
         GridPosition = pos;
     }
+    
+    public Vector2 GetGridPosition()
+    {
+        return GridPosition;
+    }
 
     public void OpenAllPossibleDoors()
     {
@@ -123,7 +128,7 @@ public class Room : MonoBehaviour
         if (minimapManager != null)
             minimapManager.RoomEntered(GridPosition);
 
-        SoundFXManager.instance.PlaySoundFXClip(portalSoundClip, transform, portalSoundVolume);
+        //SoundFXManager.instance.PlaySoundFXClip(portalSoundClip, transform, portalSoundVolume);
     }
 
     public void NotifyEnemyDefeated(GameObject enemy)

@@ -557,6 +557,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2731733629312212655, guid: 23e4e6c6581d9884d93a541c63d5c58a,
+        type: 3}
+      propertyPath: currentGameMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7157344597070155737, guid: 23e4e6c6581d9884d93a541c63d5c58a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14394,6 +14399,18 @@ PrefabInstance:
       propertyPath: navMeshSurface
       value: 
       objectReference: {fileID: 1251467013}
+    - target: {fileID: 3239532288984905074, guid: 17de35538a14ae3439d51c8fd564eb7d,
+        type: 3}
+      propertyPath: finalRoomPrefabs
+      value: 
+      objectReference: {fileID: 4959954741112285721, guid: d9ec10cfb72989b4ea095b6854f49bad,
+        type: 3}
+    - target: {fileID: 3239532288984905074, guid: 17de35538a14ae3439d51c8fd564eb7d,
+        type: 3}
+      propertyPath: portalRoomPrefabs
+      value: 
+      objectReference: {fileID: 4143848240667915783, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
     - target: {fileID: 8321804069701835001, guid: 17de35538a14ae3439d51c8fd564eb7d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14517,6 +14534,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c179b3c0ef8dc5743adb147b65992bea, type: 3}
+--- !u!1001 &8968090356491312892
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.67230225
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.896222
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659799948084587709, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143848240667915783, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_Name
+      value: PortalRoomStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143848240667915783, guid: 696301fe72edda44d8a5775641656a26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 696301fe72edda44d8a5775641656a26, type: 3}
 --- !u!1001 &9091972169514357075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14633,3 +14723,4 @@ SceneRoots:
   - {fileID: 1082358374}
   - {fileID: 409029828}
   - {fileID: 152864747}
+  - {fileID: 8968090356491312892}

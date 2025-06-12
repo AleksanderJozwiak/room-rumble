@@ -1,25 +1,29 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DungeonGenerator : MonoBehaviour
 {
     public GameObject[] roomPrefabs;
     public GameObject portalRoomPrefabs;
+    public GameObject finalRoomPrefabs;
     [SerializeField]
     private int roomCount = 3;
     private const int gridSize = 30;
     private const int maxPlacementAttempts = 1000;
 
     private readonly List<GameObject> generatedRooms = new();
-    private readonly HashSet<Vector2> occupiedPositions = new(); 
+    private readonly HashSet<Vector2> occupiedPositions = new();
     private readonly Queue<Vector2> frontierPositions = new();
-    private readonly List<Transform> unusedDoors = new(); 
+    private readonly List<Transform> unusedDoors = new();
     private readonly HashSet<Vector2> queuedPositions = new();
 
     private Dictionary<Vector2, GameObject> roomMap = new();
 
     public NavMeshSurface navMeshSurface;
+
 
     void Start()
     {
@@ -33,6 +37,7 @@ public class DungeonGenerator : MonoBehaviour
     {
         navMeshSurface.BuildNavMesh();
     }
+
     void GenerateDungeon()
     {
         Vector2 initialPosition = Vector2.zero;
@@ -86,17 +91,29 @@ public class DungeonGenerator : MonoBehaviour
 
             totalPlacementAttempts++;
         }
-        bool portalRoomPlaced = false;
 
-        while (!portalRoomPlaced && frontierPositions.Count > 0)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.StoryMode && GameManager.Instance.GetLevel() == 5)
         {
-            Vector2 potentialPosition = frontierPositions.Dequeue();
+            bool finalRoomPlaced = false;
 
-            portalRoomPlaced = PlacePortalRoom(potentialPosition);
-            if (portalRoomPlaced) break;    
+            while (!finalRoomPlaced && frontierPositions.Count > 0)
+            {
+                Vector2 potentialPosition = frontierPositions.Dequeue();
+                finalRoomPlaced = PlaceFinalRoom();
+                if (finalRoomPlaced) break;
+            }
         }
+        else
+        {
+            bool portalRoomPlaced = false;
 
-
+            while (!portalRoomPlaced && frontierPositions.Count > 0)
+            {
+                Vector2 potentialPosition = frontierPositions.Dequeue();
+                portalRoomPlaced = PlacePortalRoom(potentialPosition);
+                if (portalRoomPlaced) break;
+            }
+        }
 
         bool isFirstRoom = true;
         BakeNavMesh();
@@ -118,6 +135,7 @@ public class DungeonGenerator : MonoBehaviour
                     door.SetFrontier(true);
                 }
             }
+
             if (isFirstRoom)
             {
                 isFirstRoom = false;
@@ -127,17 +145,88 @@ public class DungeonGenerator : MonoBehaviour
             room.GeneratePowerUp();
         }
     }
+
     void InitMinimap()
     {
         MinimapManager minimap = FindObjectOfType<MinimapManager>();
         minimap.InitializeMinimap(roomMap);
-
-        //minimap.RevealRoom(Vector2.zero, true);
     }
 
     bool IsNegativeInfinity(Vector2 position)
     {
         return float.IsNegativeInfinity(position.x) && float.IsNegativeInfinity(position.y);
+    }
+
+    bool PlaceFinalRoom()
+    {
+        foreach (Vector2 potentialPosition in frontierPositions.ToList())
+        {
+            Vector2[] requiredPositions = new Vector2[]
+            {
+            potentialPosition,
+            potentialPosition + Vector2.right,
+            potentialPosition + Vector2.up,
+            potentialPosition + Vector2.right + Vector2.up
+            };
+
+            bool allPositionsAvailable = true;
+            foreach (Vector2 pos in requiredPositions)
+            {
+                if (occupiedPositions.Contains(pos))
+                {
+                    allPositionsAvailable = false;
+                    break;
+                }
+            }
+
+            if (!allPositionsAvailable) continue;
+
+            // Try placing the final room
+            Vector3 roomCenter = new Vector3(
+                (potentialPosition.x + 0.5f) * gridSize,
+                0,
+                (potentialPosition.y + 0.5f) * gridSize
+            );
+
+            Quaternion rotationAngle = Quaternion.Euler(0, 0, 0);
+
+            //Debug.LogError(ConnectsWithExistingRoom(portalRoomPrefabs, roomCenter, rotationAngle));
+            if (ConnectsWithExistingRoom(finalRoomPrefabs, roomCenter, rotationAngle))
+            {
+                GameObject newRoom = Instantiate(finalRoomPrefabs);
+                Debug.LogError(potentialPosition);
+                Debug.LogWarning(roomCenter);
+                newRoom.transform.SetPositionAndRotation(roomCenter, rotationAngle);
+
+                Room room = newRoom.GetComponent<Room>();
+
+                generatedRooms.Add(newRoom);
+
+                // Mark all 4 positions as occupied
+                foreach (Vector2 pos in requiredPositions)
+                {
+                    occupiedPositions.Add(pos);
+                    roomMap[pos] = newRoom;
+                    frontierPositions.ToList().Remove(pos); // Remove from frontier
+                }
+
+                room.SetGridPosition(potentialPosition); // Store the bottom-left position
+
+                // Connect doors
+                foreach (Transform doorTransform in GetDoors(newRoom))
+                {
+                    if (!ConnectsWithAnyOtherDoor(doorTransform))
+                    {
+                        unusedDoors.Add(doorTransform);
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        Debug.LogWarning("Failed to place final room - no suitable 2x2 space found");
+        return false;
     }
 
     bool PlaceFirstRoom(int prefabIndex, Vector2 gridPosition)
@@ -162,12 +251,12 @@ public class DungeonGenerator : MonoBehaviour
 
         return true;
     }
-    
+
     bool PlacePortalRoom(Vector2 gridPosition)
     {
         if (gridPosition == Vector2.negativeInfinity || occupiedPositions.Contains(gridPosition))
         {
-            Debug.LogWarning("Position already occupied, cannot place the first room here.");
+            Debug.LogWarning("Position already occupied, cannot place portal room here.");
             return false;
         }
 
@@ -265,6 +354,10 @@ public class DungeonGenerator : MonoBehaviour
     {
         roomPrefab.transform.SetPositionAndRotation(position, rotation);
         Transform[] newRoomDoors = GetDoors(roomPrefab);
+        if (newRoomDoors.Length == 8)
+        {
+            Debug.Log(position);
+        }
         bool connects = false;
 
         foreach (GameObject existingRoom in generatedRooms)
