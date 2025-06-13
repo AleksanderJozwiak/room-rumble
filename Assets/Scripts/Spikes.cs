@@ -13,7 +13,7 @@ public class Spikes : MonoBehaviour
         if (other.TryGetComponent<PlayerMovement>(out var playerMovement))
         {
             playerMovement.TakeDamage(damage);
-            SoundFXManager.instance.PlaySoundFXClip(spikesSoundClip, transform, spikesSoundVolume);
+            ///SoundFXManager.instance.PlaySoundFXClip(spikesSoundClip, transform, spikesSoundVolume);
         }
     }
 

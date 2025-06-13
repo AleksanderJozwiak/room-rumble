@@ -90,7 +90,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 6.3250305e+28, z: 2.5381154e+11, w: 7.1449484e+31}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.1321e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -338,7 +338,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 3.389442e-24, z: 8.37e-43, w: 13785032}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.0693e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -670,7 +670,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 8.37e-43, y: 525633800, z: 8.37e-43, w: 3.6e-43}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 7e-45, z: 2.4214e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -918,7 +918,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: NaN, y: 3e-45, z: NaN, w: 1332485}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.059e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1201,7 +1201,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 8.37e-43, y: -1.6683009e-18, z: 8.37e-43, w: 2.4e-44}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.0703e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1418,7 +1418,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.0732e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1804,7 +1804,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 8.1e-44, z: 0, w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.0837e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2123,7 +2123,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1.3e-44, w: 2.1438e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2406,7 +2406,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 3029
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 1}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1e-45, w: 2.0692e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3205,7 +3205,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
@@ -3215,7 +3215,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -60
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08f944da5af977f4ba6fbcf2fbb16071,
         type: 3}
@@ -3508,12 +3508,16 @@ MonoBehaviour:
   - {fileID: 526254057449011934, guid: 8665b985c1b106545b5ff1f580d53a7f, type: 3}
   - {fileID: 1204768170836104757, guid: 03f4c6678b3387a479b683fefabcb243, type: 3}
   - {fileID: 6557665821872521414, guid: a68596ce6b1eb3b45afb571b2bef3163, type: 3}
+  fastEnemyPrefab: {fileID: 0}
+  flyingEnemyPrefab: {fileID: 0}
+  heavyEnemyPrefab: {fileID: 0}
   gatesToControl:
   - {fileID: 1920253080310750353}
   - {fileID: 8950346013410337268}
   - {fileID: 7006739450839589489}
   - {fileID: 3359560909797668284}
   roomType: 0
+  victoryScreen: {fileID: 0}
   portalSoundClip: {fileID: 0}
   portalSoundVolume: 1
 --- !u!54 &8260193495158232423

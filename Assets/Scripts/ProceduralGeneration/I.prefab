@@ -1431,7 +1431,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
@@ -1441,12 +1441,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
@@ -1456,7 +1456,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a153a81f857f16148aceadc14ed8a7fc,
         type: 3}
@@ -1694,6 +1694,9 @@ MonoBehaviour:
   - {fileID: 5403283336427785465, guid: 1cccff40c66f0dc478d8d89edcf971f6, type: 3}
   - {fileID: 1204768170836104757, guid: 03f4c6678b3387a479b683fefabcb243, type: 3}
   - {fileID: 6557665821872521414, guid: a68596ce6b1eb3b45afb571b2bef3163, type: 3}
+  fastEnemyPrefab: {fileID: 0}
+  flyingEnemyPrefab: {fileID: 0}
+  heavyEnemyPrefab: {fileID: 0}
   gatesToControl:
   - {fileID: 5412366704696610408}
   - {fileID: 3163547944389676451}

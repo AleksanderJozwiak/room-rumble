@@ -8,7 +8,8 @@ public enum RoomType
     S,
     L,
     I,
-    Portal
+    Portal,
+    Final
 }
 
 public class Room : MonoBehaviour
@@ -19,15 +20,31 @@ public class Room : MonoBehaviour
     public Transform powerUpSpawnPoint;
     public List<GameObject> objectsToSpawn = new();
 
+    // Wave system enemies
+    public GameObject fastEnemyPrefab;
+    public GameObject flyingEnemyPrefab;
+    public GameObject heavyEnemyPrefab;
+
     public List<GameObject> gatesToControl = new();
     private bool hasBeenEntered = false;
     private bool roomCleared = false;
     private MinimapManager minimapManager;
     private List<GameObject> activeEnemies = new();
 
+    // Wave system variables
+    private bool waveSystemActive = false;
+    private int currentWave = 0;
+    private float waveTimer = 0f;
+    private float[] waveDurations = { 4f, 5f, 6f, 7f, 8f, 9f, 10f, 11f, 12f, 13f };
+
     public Vector2 GridPosition { get; private set; }
 
     public RoomType roomType;
+
+    [Header("Victory Screen")]
+    public GameObject victoryScreen; // Assign this in the inspector
+    private int totalWaves = 10; // Total waves for final room
+    private bool victoryAchieved = false;
 
     [Header("SoundFX")]
     [SerializeField] private AudioClip portalSoundClip;
@@ -38,11 +55,36 @@ public class Room : MonoBehaviour
         minimapManager = FindObjectOfType<MinimapManager>();
     }
 
+    private void Update()
+    {
+        if (waveSystemActive && !roomCleared && !victoryAchieved)
+        {
+            waveTimer += Time.deltaTime;
+
+            // Handle wave progression for all 10 waves
+            for (int i = 0; i < totalWaves; i++)
+            {
+                if (currentWave == i && waveTimer >= waveDurations[i])
+                {
+                    if (i < totalWaves - 1)
+                    {
+                        StartNextWave();
+                    }
+                    else
+                    {
+                        StartFinalWave();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     public void SetGridPosition(Vector2 pos)
     {
         GridPosition = pos;
     }
-    
+
     public Vector2 GetGridPosition()
     {
         return GridPosition;
@@ -111,13 +153,21 @@ public class Room : MonoBehaviour
             OnPlayerEnteredRoom();
         }
     }
-    
+
     void OnPlayerEnteredRoom()
     {
         if (hasBeenEntered) return;
         hasBeenEntered = true;
 
-        if (activeEnemies.Count > 0)
+        if (minimapManager != null)
+            minimapManager.RoomEntered(GridPosition);
+
+        // Handle final room differently
+        if (roomType == RoomType.Final)
+        {
+            StartFinalRoomWaveSystem();
+        }
+        else if (activeEnemies.Count > 0) // Normal room behavior
         {
             foreach (GameObject gate in gatesToControl)
             {
@@ -125,10 +175,100 @@ public class Room : MonoBehaviour
             }
         }
 
-        if (minimapManager != null)
-            minimapManager.RoomEntered(GridPosition);
-
         //SoundFXManager.instance.PlaySoundFXClip(portalSoundClip, transform, portalSoundVolume);
+    }
+
+    private void StartFinalRoomWaveSystem()
+    {
+        waveSystemActive = true;
+        currentWave = 0;
+        waveTimer = 0f;
+        victoryAchieved = false;
+
+        // Always lower gates in final room
+        foreach (GameObject gate in gatesToControl)
+        {
+            LowerGates();
+        }
+
+        // Spawn first wave immediately
+        SpawnWave(fastEnemyPrefab);
+    }
+
+    private void SpawnWave(GameObject enemyPrefab)
+    {
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, enemyPrefab.transform.position.y, spawnPoint.position.z);
+            Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+            GameObject spawned = Instantiate(enemyPrefab, spawnPosition, randomRotation);
+
+            activeEnemies.Add(spawned);
+            Health enemyHealthScript = spawned.GetComponent<Health>();
+            if (enemyHealthScript != null)
+            {
+                enemyHealthScript.SetRoom(this);
+            }
+        }
+    }
+
+    private void SpawnMixedWave()
+    {
+        StartCoroutine(SpawnMixedWaveWithDelay());
+    }
+
+    private IEnumerator SpawnMixedWaveWithDelay()
+    {
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            // Randomly select enemy type
+            int enemyType = Random.Range(0, 3);
+            GameObject enemyPrefab = enemyType switch
+            {
+                0 => fastEnemyPrefab,
+                1 => flyingEnemyPrefab,
+                2 => heavyEnemyPrefab,
+                _ => fastEnemyPrefab
+            };
+
+            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, enemyPrefab.transform.position.y, spawnPoint.position.z);
+            Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+            GameObject spawned = Instantiate(enemyPrefab, spawnPosition, randomRotation);
+
+            activeEnemies.Add(spawned);
+            Health enemyHealthScript = spawned.GetComponent<Health>();
+            if (enemyHealthScript != null)
+            {
+                enemyHealthScript.SetRoom(this);
+            }
+
+            yield return new WaitForSeconds(3f); // Delay between spawns
+        }
+    }
+
+    private void StartNextWave()
+    {
+        currentWave++;
+        waveTimer = 0f;
+
+        switch (currentWave % 3) // Cycle through 3 enemy types
+        {
+            case 0:
+                SpawnWave(fastEnemyPrefab);
+                break;
+            case 1:
+                SpawnWave(flyingEnemyPrefab);
+                break;
+            case 2:
+                SpawnWave(heavyEnemyPrefab);
+                break;
+        }
+    }
+
+    private void StartFinalWave()
+    {
+        SpawnMixedWave();
+        waveSystemActive = false; // No more waves after this
     }
 
     public void NotifyEnemyDefeated(GameObject enemy)
@@ -137,9 +277,37 @@ public class Room : MonoBehaviour
 
         if (!roomCleared && activeEnemies.Count == 0)
         {
-            roomCleared = true;
-            //minimapManager.RoomCleared(GridPosition, true);
-            OpenGates();
+            // In final room, check if all waves are complete
+            if (roomType == RoomType.Final)
+            {
+                if (currentWave >= totalWaves - 1 && !waveSystemActive)
+                {
+                    roomCleared = true;
+                    victoryAchieved = true;
+                    ShowVictoryScreen();
+                    OpenGates();
+                }
+            }
+            else // Normal room behavior
+            {
+                roomCleared = true;
+                OpenGates();
+            }
+        }
+    }
+
+    private void ShowVictoryScreen()
+    {
+        if (victoryScreen != null)
+        {
+            victoryScreen.SetActive(true);
+            Time.timeScale = 0f; // Pause the game
+            Cursor.lockState = CursorLockMode.None; // Unlock cursor
+            Cursor.visible = true; // Show cursor
+        }
+        else
+        {
+            Debug.LogWarning("Victory screen not assigned!");
         }
     }
 
@@ -176,5 +344,4 @@ public class Room : MonoBehaviour
 
         gate.transform.position = endPos;
     }
-
 }

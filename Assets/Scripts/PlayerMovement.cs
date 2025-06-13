@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            //SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform, jumpSoundVolume);
+            SoundFXManager.instance.PlaySoundFXClip(jumpSoundClip, transform, jumpSoundVolume);
         }
 
         velocity.y += gravity * Time.deltaTime;
